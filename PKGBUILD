@@ -1,11 +1,11 @@
 # Maintainer: Hexalantes <akadarpadpadak@hotmail.com>
 
 pkgbase=linux-abyss
-pkgver=6.15.8.abyss1
+pkgver=6.16.0.abyss1
 pkgrel=1
 pkgdesc="Linux Abyss kernel (based on zen)"
 arch=(x86_64)
-url="https://github.com/zen-kernel/zen-kernel"
+url="https://github.com/Hexalantes/abyss-kernel"
 license=(GPL2)
 makedepends=(
   bc cpio gettext git libelf pahole perl tar xz
@@ -61,7 +61,7 @@ _package() {
   local modulesdir="$pkgdir/usr/lib/modules/$(<version)"
   install -Dm644 "$(_make -s image_name)" "$modulesdir/vmlinuz"
   echo "$pkgbase" | install -Dm644 /dev/stdin "$modulesdir/pkgbase"
-
+  install -Dm644 /dev/null "$pkgdir/etc/mkinitcpio.d/$pkgbase.preset"
   _make INSTALL_MOD_PATH="$pkgdir/usr" INSTALL_MOD_STRIP=1 modules_install
   depmod -b "$pkgdir/usr" "$(cat version)"
 
